@@ -4,9 +4,8 @@ import time
 from Aux_0 import *
 
 
-def Check_x(x, lamb, N, shifted, fixed):         # for a fixed 'x' checks
-                                                    # whether the required set 
-                                                    # inclusion holds
+def Check_x(x, lamb, N, shifted, fixed):         
+   # for a fixed 'x' check whether the required set inclusion holds
     start_time = time.time()
     check = False
     H = np.array([2 * lamb ** N, 2 * lamb ** N , 2 * lamb ** (2*N)])
@@ -43,22 +42,20 @@ def Check_x(x, lamb, N, shifted, fixed):         # for a fixed 'x' checks
     return [check, None]       # return value if no gamma is found
 
 
-def InclCheck(lamb, N, init, known):         # checks whether the set inclusions
-                                                # hold for all x in the set
-                                                # D^N[V] intersected with Gamma
+def InclCheck(lamb, N, init, known):         
+  # checks whether the set inclusion hold for all x in the set D^N[V] intersected with Gamma
     start_time = time.time()
     D = np.array([lamb, lamb, lamb**2])         #The dilation in each coordinate
-    DV_N = N_Dilat(lamb, N)
-    W = FundemFaceIter(lamb, N, init)           #The 'z'-faces of the V(N,init)
-                                                # set
+    DV_N = N_Dilat(lamb, N)                     #DV_N is is D^N[V] intersected with Gamma
+    W = FundemFaceIter(lamb, N, init)           #The 'z'-faces of the V(N,init) set
     end_time = time.time()
     print("Finished preparatory computations after "+ str(end_time-start_time))
     start_time = time.time()
     gammaTox_lst = [ ]
-    
     for x in DV_N:
+    # We loop on all x in D^N[V] to check the condition
         tru_val = False
-        K_shift = ShiftFaces(known, x)
+        K_shift = ShiftFaces(known, x)          #Shift the 'z'-faces of 
         x_output = Check_x(x, lamb, N, K_shift, W)
         tru_val = x_output[0]
         if tru_val == False: break
