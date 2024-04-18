@@ -4,7 +4,7 @@ import time
 from Aux_0 import *
 
 
-def NewCheck_x(x, lamb, N, shifted, fixed):         # for a fixed 'x' checks
+def Check_x(x, lamb, N, shifted, fixed):         # for a fixed 'x' checks
                                                     # whether the required set 
                                                     # inclusion holds
     start_time = time.time()
@@ -59,7 +59,7 @@ def NewInclCheck(lamb, N, init, known):         # checks whether the set inclusi
     for x in DV_N:
         tru_val = False
         K_shift = ShiftFaces(known, x)
-        x_output = NewCheck_x(x, lamb, N, K_shift, W)
+        x_output = Check_x(x, lamb, N, K_shift, W)
         tru_val = x_output[0]
         if tru_val == False: break
         gammaTox_lst.append( [x, x_output[1] ] )
@@ -131,7 +131,7 @@ def FailIncCheck(lamb, N, init, known):         # given the condition does not
     for x in DV_N:
         tru_val = False
         K_shift = ShiftFaces(known, x)
-        x_output = NewCheck_x(x, lamb, N, K_shift, W)
+        x_output = Check_x(x, lamb, N, K_shift, W)
         tru_val = x_output[0]
         gammaTox_lst.append( [x, x_output[1] ] )
     end_time = time.time()
