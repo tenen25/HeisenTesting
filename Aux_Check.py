@@ -43,7 +43,7 @@ def Check_x(x, lamb, N, shifted, fixed):         # for a fixed 'x' checks
     return [check, None]       # return value if no gamma is found
 
 
-def NewInclCheck(lamb, N, init, known):         # checks whether the set inclusions
+def InclCheck(lamb, N, init, known):         # checks whether the set inclusions
                                                 # hold for all x in the set
                                                 # D^N[V] intersected with Gamma
     start_time = time.time()
