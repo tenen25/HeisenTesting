@@ -64,7 +64,7 @@ known_set = T_2               # set which is 'known' to be a testing domain
 
 
 #Check the relevant inclusion
-gamma_lst = NewInclCheck(lamb, N, init_set, known_set)
+gamma_lst = InclCheck(lamb, N, init_set, known_set)
 
 ###################### List of gammas for x ########################
    
