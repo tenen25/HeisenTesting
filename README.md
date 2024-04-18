@@ -1,5 +1,5 @@
 # HeisenTesting
-Python program to numerically check testing domains in the Heisenberg group
+Python program to numerically check testing domains in the Heisenberg group following arguments in [BBPT].
 
 Consists of 3 Python files: Aux_0 ,  Aux_Check, main
 
@@ -19,5 +19,7 @@ $$ xT_1 \subseteq D^N(\gamma_x) V(N,T_2). $$
 
 This is implemented in the function InclCheck(lamb, N, T_2, T_1) which returns True if the condition holds for all $x\in D^N[V]\cap \Gamma$ and False else.
 
-If the last condition holds when  $T_1$ is a testing domain, then we deduce that $T_2$ is also a testing domain. It follows, that if $T_1,T_2,...,T_k \subseteq \Gamma$ are finite nonempty subsets such that InclCheck(lamb, N_j, T_j, T_(j+1)) returns True for all $1\leq j<k$ when $T_1$ is known to be a testing domain, then $T_k$ is also a testing domain. 
+If the last condition holds when  $T_1$ is a testing domain, then we deduce that $T_2$ is also a testing domain. It follows, that if $T_1,T_2,...,T_k \subseteq \Gamma$ are finite nonempty subsets such that InclCheck(lamb, N_j, T_j, T_(j+1)) returns True for all $j$ when $T_1$ is known to be a testing domain, then $T_k$ is also a testing domain. 
+
+Since $D^N[V]\cap \Gamma$ is of the order of $\lambda_0^{4N}$, we can see that the program has at least exponential runtime with respect to $N$. For this reason, we prefer to work with a sequence of checks of the program, rather than a direct application of the program InclCheck(lamb, N, T_1, T_k) for very large $N$.
 
