@@ -43,6 +43,7 @@ def AltDilatV(lamb):                    # Compute V(1,e) intersected with
             ran_arr[0][i] = -D[i]+1
             ran_arr[1][i] = D[i]-1
     DV1 = set()
+    # Run over previous ranges of values and add lattice points to the set
     for x in range(ran_arr[0][0], ran_arr[1][0]+1,2):
         for y in range(ran_arr[0][1], ran_arr[1][1]+1,2):
             for z in range(ran_arr[0][2], ran_arr[1][2]+1,2):
@@ -51,7 +52,7 @@ def AltDilatV(lamb):                    # Compute V(1,e) intersected with
     return DV1
 
 
-# return V(N,init_set) for stretch factor lamb
+# Return V(N,init_set) for stretch factor lamb
 def FundemDomIter(lamb, N, init_set):
     D = np.array([lamb, lamb, lamb ** 2])
     W1= AltDilatV(lamb)
@@ -81,6 +82,7 @@ def N_Dilat(lamb, N):       # return the lattice points in the N dilations of
             ran_arr[0][i] = -(D[i] ** N) + 1
             ran_arr[1][i] = D[i] ** N - 1
     DV_N = []
+    # Run over previous ranges of values and add lattice points to the set
     for x in range(ran_arr[0][0], ran_arr[1][0] + 1, 2):
         for y in range(ran_arr[0][1], ran_arr[1][1] + 1, 2):
             for z in range(ran_arr[0][2], ran_arr[1][2] + 1, 2):
@@ -94,6 +96,7 @@ def XY_Lattice_Approximant(x, lamb, N):         # returns set of all closest
                                                 # points in the lattice D^N of
                                                 # the lattice Gamma
     gamma_xy = np.array( [x[0], x[1]] )
+    #D_N is a factor we divide against to see whether a point is in D^N[V]
     D_N = np.array([2 * lamb ** N, 2 * lamb ** N])
     gamma_init = np.divide(np.asarray(gamma_xy), D_N)
     ranges = [ [] for i in range(2)]
@@ -103,12 +106,14 @@ def XY_Lattice_Approximant(x, lamb, N):         # returns set of all closest
         else:
             ranges[i] = range(math.floor(gamma_init[i]), math.ceil(gamma_init[i]) + 1)
     approx_set = set()
+    # we run over nearest XY pairs permissible in D^N[V] and save them to approx_set
     for x in ranges[0]:
         for y in ranges[1]:
             temp_gamma = np.array([x, y])
             temp_gamma = temp_gamma * D_N
             approx_set.add(tuple(temp_gamma))
     return approx_set
+
 
 def ShiftFaces(F, vect):                    # returns a shift of the 'z'-faces
                                             # of a box 'F' by a shift of 'vect'
@@ -242,7 +247,8 @@ def Project_to_Axis(var_set, axis_num):    #Project a set onto an axis to see va
     projected_list = sorted(projected_set)
     return projected_list
 
-def Save_Arrays_to_Text(arr, N, known_name, check_name):
+# A program to save pairs of gamma and x values satisfying the desired set inclusions
+def Save_Arrays_to_Text(arr, N, known_name, check_name):    
     file = open(check_name+"_to_"+known_name, "w+")
     start_str = "The condition is satisfied for " + check_name + " with respect to " \
     +  known_name +"and " + str(N) + "with the following shift information:\n"
