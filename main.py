@@ -1,10 +1,11 @@
+
+#Needed libraries:
 import math
 import numpy as np
 import time
 from Aux_0 import *
 from Aux_Check import *
-
-
+from itertools import chain
 
 
 
@@ -20,6 +21,7 @@ print('Computation is performed for lamb='+ str(lamb)+', N='+ str(N) +".")
 
 
 
+#################### Auxiliary computations #####################
 
 # We define the dilation vector
 D = np.array([lamb, lamb, lamb**2])
@@ -29,9 +31,9 @@ V = [np.array([0, 0, 0])]
 
             
 
-#################### Aux computations #####################
  
 
+# Coordinates for the XY projection of the boxes
 x_start = -2
 x_end = 0
 
