@@ -14,6 +14,7 @@ def NewCheck_x(x, lamb, N, shifted, fixed):         # for a fixed 'x' checks
     rad_search =  (lamb**2) * (fixed[1][2]-fixed[0][2]+2)
     #rad_search = 4* lamb**(2*N)
     print("The radius for searching gamma in the z-direction is " + str(rad_search))
+    # Generate set of permissible close XY values in D^N[V] to 'x'
     search_set = XY_Lattice_Approximant(x, lamb, N)
     z_center = int(x[2]/ H[2])
     for r in range(0, int(rad_search), H[2] ):
@@ -26,8 +27,6 @@ def NewCheck_x(x, lamb, N, shifted, fixed):         # for a fixed 'x' checks
                     check = CheckContain(Faces_shift, shifted)
                     
                     if check:
-                        #print("For " + str(x) + " the corresponding gamma is " + str(gamma) + 
-                        #      ", with z-distance " + str(  gamma[2] - x[2]) +".")
                         gamma_return = gamma    #The correct gamma for said x
                         end_time = time.time()
                         print("Run time to check at x=" + str(x) + " is " + str(end_time - start_time))
@@ -54,14 +53,19 @@ def NewInclCheck(lamb, N, init, known):         # checks whether the set inclusi
     end_time = time.time()
     print("Finished preparatory computations after "+ str(end_time-start_time))
     start_time = time.time()
+    # list of pairs (x,gamma_x) satisfying the set inclusion
     gammaTox_lst = [ ]
-    
+    # Runs the check for all 'x' in D^N[V]
     for x in DV_N:
         tru_val = False
+        # shift the list known by a lattice vector 'x'
         K_shift = ShiftFaces(known, x)
+        # checks whether there is a gamma satisfying the desired set inclusion
         x_output = NewCheck_x(x, lamb, N, K_shift, W)
         tru_val = x_output[0]
+        # if for one 'x' the inclusion fails, returns False
         if tru_val == False: break
+        # Append x and corresponding gamma satisfying inclusion to the list 'gammaTox_lst"
         gammaTox_lst.append( [x, x_output[1] ] )
     print("The statement is " + str(tru_val) +" for N="+str(N)+" and lamb="+str(lamb)+".")
     
@@ -84,18 +88,24 @@ def CheckContain(lst_set1, lst_set2):    #determines whether intervals defined
                                          # lst_set2
     
     time_start_tot = time.time()
+    # saves the possible XY values of elements in lst_set2
     xy_lst = XY_Range(lst_set2)
+    # Generate list of indices for XY values in lst_set1
     ind_lst = [ FindXY(lst_set1, xy_tup) for xy_tup in xy_lst ]
     for ind in range(0, len(lst_set2), 2):
+        # 
         xy_tup =  ( lst_set2[ind][0], lst_set2[ind][1]  ) 
         j = FindXY(lst_set1, xy_tup)
+        # if there is no interval in lst_set1 with xy_tup entries
         if j == None: 
             tru_val=False
             break
+        # check whether the intervals in lst_set1 contain the intervals in lst_set2
         tru_val = lst_set1[j][2] <= lst_set2[ind][2] and lst_set1[j+1][2] >= lst_set2[ind+1][2]
         if tru_val == False: break
     time_end_tot = time.time()
     print("Run time for the check function is " + str(time_end_tot - time_start_tot))
+    #tru_val is TRUE if all interval inlusions hold, FALSE if one inclusion fails
     return tru_val
 
 def FindXY(lst, tup):                       # find first index of element with
