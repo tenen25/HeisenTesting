@@ -1,7 +1,7 @@
 # HeisenTesting
 Python program to numerically check testing domains in the Heisenberg group following arguments in [BBPT].
 
-Hi Lior - this is Rami editting :)
+$$\red{Hi Lior - this is Rami editting :)}$$
 
 
 Consists of 3 Python files: Aux_0 ,  Aux_Check, main
