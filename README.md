@@ -1,8 +1,13 @@
 # HeisenTesting
 Python program to numerically check testing domains in the Heisenberg group following arguments in [BBPT].
 
-Consists of 3 Python files: Aux_0 ,  Aux_Check, main
+_**Needed Python libraries:**_
+(1) Numpy
+(2) itertools
+(3) math
 
+
+**Theoretical description of code:**
 The program implements algorithm in upcoming paper to check whether a set is a testing domain for substitution data of the form $\big( \mathcal{A}, \lambda_0, S_0 \big)$ for dilation data $\Big( H_3(\mathbb{R}), d_H, (D_\lambda)_{\lambda>0}, H_3(2\mathbb{Z}), [-1,1)^3  \Big)$. We recall the meaning of the previous expressions. The action in $H_3(\mathbb{R})$ is given by
 
 $$(x,y,z)\cdot (a,b,c):= \big( x+a, y+b, z+c +\frac{1}{2}(xb-ay) \big). $$
@@ -42,4 +47,11 @@ If the last condition holds when  $T_1$ is a testing domain, then we deduce that
 Since $D^N[V]\cap \Gamma$ is of the order of $\lambda_0^{4N}$, we can see that the program has at least exponential runtime with respect to $N$. For this reason, we prefer to work with a sequence of checks of the program, rather than a direct application of the program InclCheck(lamb, N, T_1, T_k) for very large $N$.
 
 To minimize checks and since all sets for which we check set inclusions are a unions of intervals with respect to the 'z' coordinate, these sets are saved as  two connsecutive triples corresponding to the edges of the interval. They are considered as the 'z'-faces of the sets. The set inclusions are checked by whether by inequalities of the 'z'-intervals.
+
+_**References:**_
+
+[BBPT] R. Band, S. Beckus, F. Pogorzelski, L. Tenenbaum Approximations of symbolic substitution systems.
+
+[BHP] S. Beckus, T. Hartnick, and F. Pogorzelski. Symbolic substitution systems beyond abelian groups.
+
 
