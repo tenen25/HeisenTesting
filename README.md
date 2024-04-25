@@ -41,3 +41,5 @@ If the last condition holds when  $T_1$ is a testing domain, then we deduce that
 
 Since $D^N[V]\cap \Gamma$ is of the order of $\lambda_0^{4N}$, we can see that the program has at least exponential runtime with respect to $N$. For this reason, we prefer to work with a sequence of checks of the program, rather than a direct application of the program InclCheck(lamb, N, T_1, T_k) for very large $N$.
 
+To minimize checks and since all sets for which we check set inclusions are a unions of intervals with respect to the 'z' coordinate, these sets are saved as  two connsecutive triples corresponding to the edges of the interval. They are considered as the 'z'-faces of the sets. The set inclusions are checked by whether by inequalities of the 'z'-intervals.
+
