@@ -1,13 +1,24 @@
 # HeisenTesting
-Python program to numerically check testing domains in the Heisenberg group following arguments in [BBPT].
+Python program to numerically check testing domains in the Heisenberg group described in [BBPT], _Approximations of symbolic substitution systems_.
 
 _**Needed Python libraries:**_
+
 (1) Numpy
 (2) itertools
 (3) math
 
+_**Parameters needed from user:**_
+
+Parameters from the user are fed in via the main function. They are:
+
+(1) Underlying stretch factor - 'lamb'.
+(2) Iteration number - 'N'.
+(3) Set which is known to be a testing domain - 'known_set'.
+(4) Set which is suspected to be a testing domain - 'init_set'.
+
 
 **Theoretical description of code:**
+
 The program implements algorithm in upcoming paper to check whether a set is a testing domain for substitution data of the form $\big( \mathcal{A}, \lambda_0, S_0 \big)$ for dilation data $\Big( H_3(\mathbb{R}), d_H, (D_\lambda)_{\lambda>0}, H_3(2\mathbb{Z}), [-1,1)^3  \Big)$. We recall the meaning of the previous expressions. The action in $H_3(\mathbb{R})$ is given by
 
 $$(x,y,z)\cdot (a,b,c):= \big( x+a, y+b, z+c +\frac{1}{2}(xb-ay) \big). $$
@@ -18,7 +29,7 @@ $$ \Vert (x,y,z) \Vert_{CK}:= \sqrt[4]{(x^2+y^2)^2+16z^2}. $$
 
 For every $\lambda>0$, $D_\lambda: H_3(\mathbb{R}) \to H_3(\mathbb{R})$ is a dilation given by $D_\lambda(x,y,z)=\big( \lambda x, \lambda y, \lambda^2 z \big)$. $\lambda_0$ is some underlying stretch factor, for which $D_{\lambda_0}$ preserves the lattice $\Gamma:= H_3(2\mathbb{Z})$. $V=[-1,1)^3$ is a fundemantal testing domain for the lattice $\Gamma$. i.e., $H_3(\mathbb{R})= \underset{\gamma \in \Gamma}{\sqcup} \gamma V$. We denote $D:=D_{\lambda_0}$ for brevity.
 
-Using these notions, the sets $V(n,M)$, for $n\in \mathbb{N}$ and $M\Subset \Gamma$, are defined recursively in [BHP]. $V(1,M):= D[M]\cdot D[V]$, and $V(1):=V(1,\{e\})$ is simply $D[V]$. $V(n+1,M)$ is given by $D[V(n,M)\cap \Gamma]\cdot V(1)$. Using these notations, the program checks for inputs lamb for underlying stretch factor $\lambda_0\in \mathbb{N}$, N for iteration number $N\in \mathbb{N}$, and two nonempty finite sets $T_1,T_2\subset \Gamma$ whether every $x\in D^N[V]\cap \Gamma$ there exists a $\gamma_x \in \Gamma$ such that
+Using these notions, the sets $V(n,M)$, for $n\in \mathbb{N}$ and $M\Subset \Gamma$, are defined recursively in [BHP], _Symbolic substitution systems beyond abelian groups_. $V(1,M):= D[M]\cdot D[V]$, and $V(1):=V(1,\{e\})$ is simply $D[V]$. $V(n+1,M)$ is given by $D[V(n,M)\cap \Gamma]\cdot V(1)$. Using these notations, the program checks for inputs lamb for underlying stretch factor $\lambda_0\in \mathbb{N}$, N for iteration number $N\in \mathbb{N}$, and two nonempty finite sets $T_1,T_2\subset \Gamma$ whether every $x\in D^N[V]\cap \Gamma$ there exists a $\gamma_x \in \Gamma$ such that
 
 $$ xT_1 \subseteq D^N(\gamma_x) V(N,T_2). $$
 
@@ -50,7 +61,7 @@ To minimize checks and since all sets for which we check set inclusions are a un
 
 _**References:**_
 
-[BBPT] R. Band, S. Beckus, F. Pogorzelski, L. Tenenbaum Approximations of symbolic substitution systems.
+[BBPT] R. Band, S. Beckus, F. Pogorzelski, L. Tenenbaum. Approximations of symbolic substitution systems.
 
 [BHP] S. Beckus, T. Hartnick, and F. Pogorzelski. Symbolic substitution systems beyond abelian groups.
 
