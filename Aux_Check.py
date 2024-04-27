@@ -43,7 +43,8 @@ def Check_x(x, lamb, N, shifted, fixed):
                         return [True, gamma_return]     # return value if a
                                                         # gamma is found
         if r == 0: continue
-    if check == False: print("For " + str(x) +" with N="+str(N)+ " and lamb="+ str(lamb)+
+   # In case no suitable 'gamma' is found 
+   if check == False: print("For " + str(x) +" with N="+str(N)+ " and lamb="+ str(lamb)+
                              ", there is no corresponding gamma.")
                                                 # In case no gamma is found
                                                 # prints message
