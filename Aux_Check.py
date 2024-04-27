@@ -5,23 +5,33 @@ from Aux_0 import *
 
 
 def Check_x(x, lamb, N, shifted, fixed):         
-   # for a fixed 'x' check whether the required set inclusion holds
+   # for a fixed 'x' check whether shifting 'shifted' by 'x' can be contained by a shift of
+   # of 'fixed' by some 'gamma', in the N-dilated lattice
+   # returns list with truth value for the condition and suitable 'gamma' if found  
     start_time = time.time()
     check = False
     H = np.array([2 * lamb ** N, 2 * lamb ** N , 2 * lamb ** (2*N)])
-                    # gaps between on the dilated lattice
+    # H corresponds to possible jumps between adjacent element on the N-dilated lattice
     rad_search =  (lamb**2) * (fixed[1][2]-fixed[0][2]+2)
-    #rad_search = 4* lamb**(2*N)
+    # 'rad_search' is equal to '4* lamb**(2*N)', which is how much we should shift the 'z' intervals of
+    # of 'fixed'
     print("The radius for searching gamma in the z-direction is " + str(rad_search))
+    # We fix the suspected XY values for 'gamma' which are closest to 'x'
     search_set = XY_Lattice_Approximant(x, lamb, N)
+    # 'z_center' is the closest 'z'-values in the N-dilated lattice below x[2]
     z_center = int(x[2]/ H[2])
+    # we search possible 'gamma[2]' values concenterically around 'z_center'
+    # in jumps corresponding to H[2]
     for r in range(0, int(rad_search), H[2] ):
         for sign in range(2):
             z_temp = (-1)**sign * r + z_center 
-            #else:
             for xy_gamma in search_set:
+                    # Generate 'gamma' with gamma[2] = z_temp ranging on closest
+                    # possible XY values
                     gamma = (int(xy_gamma[0]), int( xy_gamma[1]), int(z_temp))
+                    # Shifts 'fixed' by the generated 'gamma'
                     Faces_shift = ShiftFaces(fixed, gamma)
+                    # check the containment of shifted in Faces_shift
                     check = CheckContain(Faces_shift, shifted)
                     
                     if check:
