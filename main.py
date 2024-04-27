@@ -36,13 +36,13 @@ x_end = 0
 
 # The following two sets are sets which we hope are smaller
 # testing domains
-T = GenerateFaces(l_1*2, l_2*2,x_start,x_end)
-T_3 = GenerateFaces(-2*2, 2*2,x_start,x_end)
+T_fin = GenerateFaces(-2, 0,x_start,x_end)
+
 
 #The following are sets which we can show are testing domains
-T_2 = GenerateFaces(-3*2, 3*2,x_start,x_end)
+T_2 = GenerateFaces(-2*2, 2,x_start,x_end)
 
-T_1 = GenerateFaces(-4*2, 4*2,x_start,x_end)
+T_1 = GenerateFaces(-3*2, 3*2,x_start,x_end)
 
 # K is known theoretic testing domain for 'lamb' greater than 4
 K = DilatEdge(lamb)
