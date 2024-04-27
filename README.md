@@ -81,8 +81,8 @@ For $\lambda_0=3$, the tuple $\big( T_1 ,1\big)$ is a testing tuple. This follow
 
 _**References:**_
 
-[BBPT] R. Band, S. Beckus, F. Pogorzelski, L. Tenenbaum. Approximations of symbolic substitution systems.
+[BBPT] R. Band, S. Beckus, F. Pogorzelski, L. Tenenbaum. Approximations of symbolic substitution systems. 
 
-[BHP] S. Beckus, T. Hartnick, and F. Pogorzelski. Symbolic substitution systems beyond abelian groups.
+[BHP] S. Beckus, T. Hartnick, and F. Pogorzelski. Symbolic substitution systems beyond abelian groups. https://arxiv.org/abs/2109.15210
 
 
