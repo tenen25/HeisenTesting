@@ -16,7 +16,7 @@ def Check_x(x, lamb, N, shifted, fixed):
     # 'rad_search' is equal to '4* lamb**(2*N)', which is how much we should shift the 'z' intervals of
     # of 'fixed'
     print("The radius for searching gamma in the z-direction is " + str(rad_search))
-    # We fix the suspected XY values for 'gamma' which are closest to 'x'
+    # Generate the suspected XY values for 'gamma' which are closest to 'x'
     search_set = XY_Lattice_Approximant(x, lamb, N)
     # 'z_center' is the closest 'z'-values in the N-dilated lattice below x[2]
     z_center = int(x[2]/ H[2])
@@ -62,14 +62,19 @@ def InclCheck(lamb, N, init, known):
     end_time = time.time()
     print("Finished preparatory computations after "+ str(end_time-start_time))
     start_time = time.time()
+    #This is the list of gamma corresponding to 'x'-s satisfying the necessary inclusion
     gammaTox_lst = [ ]
     for x in DV_N:
     # We loop on all x in D^N[V] to check the condition
         tru_val = False
-        K_shift = ShiftFaces(known, x)          #Shift the 'z'-faces of 
+        #  shift the list 'known' by a lattice vector 'x'
+        K_shift = ShiftFaces(known, x)   
+        #  checks whether there is a 'gamma' satisfying the desired set inclusion 
+        # for the current 'x'
         x_output = Check_x(x, lamb, N, K_shift, W)
         tru_val = x_output[0]
-        if tru_val == False: break
+        if tru_val == False: break      # Break loop in case there exists 'x' has no corresponding 'gamma'
+        # Append x and corresponding gamma satisfying inclusion to the list 'gammaTox_lst'   
         gammaTox_lst.append( [x, x_output[1] ] )
     print("The statement is " + str(tru_val) +" for N="+str(N)+" and lamb="+str(lamb)+".")
     
@@ -87,19 +92,22 @@ def XY_Range(lst):                      # for a list of triples corresponding
     return list(xy_lst)
     
             
-def CheckContain(lst_set1, lst_set2):    #determines whether intervals defined
-                                         # by lst_set1 by is superset of 
-                                         # lst_set2
-    
+def CheckContain(lst_set1, lst_set2):    
+   #determines whether 'z'-intervals defined by lst_set1 by is superset  
+   # of lst_set2  
     time_start_tot = time.time()
+   # saves the possible XY values of elements in lst_set2
     xy_lst = XY_Range(lst_set2)
+   # Generate list of indices for XY values in lst_set1
     ind_lst = [ FindXY(lst_set1, xy_tup) for xy_tup in xy_lst ]
     for ind in range(0, len(lst_set2), 2):
+        # saves the XY values of 'lst_set2[ind]' as 'xy_tup'
         xy_tup =  ( lst_set2[ind][0], lst_set2[ind][1]  ) 
         j = FindXY(lst_set1, xy_tup)
         if j == None: 
             tru_val=False
             break
+        # check whether the intervals in lst_set1 contain the intervals in lst_set2
         tru_val = lst_set1[j][2] <= lst_set2[ind][2] and lst_set1[j+1][2] >= lst_set2[ind+1][2]
         if tru_val == False: break
     time_end_tot = time.time()
@@ -113,7 +121,7 @@ def FindXY(lst, tup):                       # find first index of element with
             return ind
     return None
 
-#####################################
+##################################### Other proposed functions ################
 
 def FailReturn(lst):                        # return list of elements for which
                                             # no gamma values were found
