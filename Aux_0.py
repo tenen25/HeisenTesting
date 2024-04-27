@@ -30,7 +30,7 @@ def Shift(A,B):
 
 
 def AltDilatV(lamb):                    # Compute V(1,e) intersected with
-                                        # the lattice Gamma for stretch factor
+                                        # the lattice H_3(2\mathbb{Z}) for stretch factor
                                         # lamb
     D = np.array([lamb, lamb, lamb**2])
     ran_arr = np.array([[0,0,0],[0,0,0]])
@@ -43,6 +43,7 @@ def AltDilatV(lamb):                    # Compute V(1,e) intersected with
             ran_arr[0][i] = -D[i]+1
             ran_arr[1][i] = D[i]-1
     DV1 = set()
+    # Run over previous ranges of values and add lattice points to the set
     for x in range(ran_arr[0][0], ran_arr[1][0]+1,2):
         for y in range(ran_arr[0][1], ran_arr[1][1]+1,2):
             for z in range(ran_arr[0][2], ran_arr[1][2]+1,2):
@@ -51,13 +52,15 @@ def AltDilatV(lamb):                    # Compute V(1,e) intersected with
     return DV1
 
 
-# return V(N,init_set) for stretch factor lamb
+# return V(N,init_set) intersected with the lattice for stretch factor 'lamb' and 'init_set' as standard set
 def FundemDomIter(lamb, N, init_set):
+    # D is the dilation vector
     D = np.array([lamb, lamb, lamb ** 2])
+    # W1 is the set V(1) intersected with the lattice as a standard set 
     W1= AltDilatV(lamb)
     W_N = []
     M = init_set
-    # For each n from 1 to N we compute V(n,e)
+    # For each n from 1 to N we compute V(n,e) from V(n-1,e)
     for n in range(1, N + 1):
         # We dilate all lattice points in V by the dilation vector D which is given by V*D. 
         #Then we add the lattice points
@@ -70,6 +73,7 @@ def FundemDomIter(lamb, N, init_set):
 
 def N_Dilat(lamb, N):       # return the lattice points in the N dilations of 
                             # the fundamental domain
+    # D is the dilation vector
     D = [lamb,lamb,lamb**2]
     ran_arr = np.array([[0, 0, 0], [0, 0, 0]])
     for i in range(3):
@@ -81,6 +85,7 @@ def N_Dilat(lamb, N):       # return the lattice points in the N dilations of
             ran_arr[0][i] = -(D[i] ** N) + 1
             ran_arr[1][i] = D[i] ** N - 1
     DV_N = []
+    # Run over previous ranges of values and add lattice points to the set
     for x in range(ran_arr[0][0], ran_arr[1][0] + 1, 2):
         for y in range(ran_arr[0][1], ran_arr[1][1] + 1, 2):
             for z in range(ran_arr[0][2], ran_arr[1][2] + 1, 2):
@@ -94,6 +99,7 @@ def XY_Lattice_Approximant(x, lamb, N):         # returns set of all closest
                                                 # points in the lattice D^N of
                                                 # the lattice Gamma
     gamma_xy = np.array( [x[0], x[1]] )
+    # D_N is a factor we divide against to see whether a point is in D^N[V]
     D_N = np.array([2 * lamb ** N, 2 * lamb ** N])
     gamma_init = np.divide(np.asarray(gamma_xy), D_N)
     ranges = [ [] for i in range(2)]
@@ -103,6 +109,7 @@ def XY_Lattice_Approximant(x, lamb, N):         # returns set of all closest
         else:
             ranges[i] = range(math.floor(gamma_init[i]), math.ceil(gamma_init[i]) + 1)
     approx_set = set()
+    # we run over nearest XY pairs permissible in D^N[V] and save them to approx_set
     for x in ranges[0]:
         for y in ranges[1]:
             temp_gamma = np.array([x, y])
@@ -150,13 +157,16 @@ def DilatEdge(lamb):                        #return list of tuples corresponding
 
 def FundemFaceIter(lamb, N, M):     # return list of numpy arrays corresponding 
                                     # to the 'z'-faces of V(N,M)
+    # D is the dilation vector
     D = np.array([lamb, lamb, lamb ** 2])
+    # W is the set V(1) intersected with the lattice saved as 'z'-intervals
     W = DilatEdge(lamb)
     F_N = []
-    # Generate list of list to work on upper and lower 'z'-values separately
+    # Generate list of lists to work on upper and lower 'z'-values separately
     M_temp = [ [], [] ]
     W_temp = [ [], [] ]
     F_temp = [ [], [] ]
+    # For each n from 1 to N we compute V(n,e) from V(n-1,e), all as 'z'-intervals
     for n in range(1, N + 1):
         leng = int( (len(M)*len(W))/2 )
         F= [0] * leng               # a blank list of length 'leng'
@@ -188,7 +198,7 @@ def GenerateFaces(HeightDown, HeightUp,xystart, xyend):
     return Faces
 
 
-#------------------------- Other proposed functions --------------------------
+############################# Other proposed functions #########################
 
 
 def DecompLatt(x, lamb, N):                     # returns the decomposition
@@ -242,6 +252,7 @@ def Project_to_Axis(var_set, axis_num):    #Project a set onto an axis to see va
     projected_list = sorted(projected_set)
     return projected_list
 
+# Save arrays to txt file
 def Save_Arrays_to_Text(arr, N, known_name, check_name):
     file = open(check_name+"_to_"+known_name, "w+")
     start_str = "The condition is satisfied for " + check_name + " with respect to " \
