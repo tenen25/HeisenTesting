@@ -25,7 +25,7 @@ $$(x,y,z)\cdot (a,b,c):= \big( x+a, y+b, z+c +\frac{1}{2}(xb-ay) \big). $$
 
 The metric $d_H$ is left invariant metric on $H_3(\mathbb{R})$ satisfying $d_H \big( (x,y,z), (a,b,c)  \big)= \Vert (x,y,z)^{-1} \cdot (a,b,c)  \Vert_{CK} $, with $\Vert \cdot \Vert_{CK}$ being the Cygan-Koranyi norm on $H_3(\mathbb{R})$ given by 
 
-$$ \Vert (x,y,z) \Vert_{CK}:= \sqrt[4]{(x^2+y^2)^2+16z^2}. $$
+$$ \Vert (x,y,z) \Vert_{CK}:= \sqrt[4]{(x^2+y^2)^2+z^2}. $$
 
 For every $\lambda>0$, $D_\lambda: H_3(\mathbb{R}) \to H_3(\mathbb{R})$ is a dilation given by $D_\lambda(x,y,z)=\big( \lambda x, \lambda y, \lambda^2 z \big)$. $\lambda_0$ is some underlying stretch factor, for which $D_{\lambda_0}$ preserves the lattice $\Gamma:= H_3(2\mathbb{Z})$. $V=[-1,1)^3$ is a fundemantal testing domain for the lattice $\Gamma$. i.e., $H_3(\mathbb{R})= \underset{\gamma \in \Gamma}{\sqcup} \gamma V$. We denote $D:=D_{\lambda_0}$ for brevity.
 
