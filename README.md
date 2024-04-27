@@ -9,13 +9,26 @@ _**Needed Python libraries:**_
 
 _**Parameters needed from user:**_
 
-Parameters from the user are fed in via the main function. They are:
+Parameters needed from the user are fed in the main function. They are:
 
 (1) Underlying stretch factor - 'lamb'.
 (2) Iteration number - 'N'.
 (3) Set which is known to be a testing domain - 'known_set'.
 (4) Set which is suspected to be a testing domain - 'init_set'.
 
+The sets are input as lists of triples describing 'z'-intervals. The even or odd entries in the list describe the bottom or upper part of the 'z'-interval accordingly. For example the set $\\{-2,0\\}^2\times \\{-6,-4,-2,0,2\\}$ can be saved as
+
+// 
+[ (-2,-2,-6), (-2,-2,2), (-2,0,-6), (-2,0,2), (0,-2,-6), (0,-2,2), (0,0,-6), (0,0,2)  ]
+ //
+
+_**Preliminary computations:**_
+
+The following sets are saved to the memory prior to the final check:
+(i) $K = V(1)\cap H_3(2\mathbb{Z})$, 
+(ii) $K3 = V(2)\cap H_3(2\mathbb{Z})$ for the case when $\lambda_0=3$, 
+(iii) $T_1 = \\{ -2,0\\}^2\times \\{-6,-4,...,4,6\\}$, 
+(iv) $T_2 =\\{ 0 , -2 \\}^2 \times \\{ -4,-2,0,2 \\}$.
 
 **Theoretical description of code:**
 
@@ -55,9 +68,16 @@ This is implemented in the function InclCheck(lamb, N, T_2, T_1) in Aux_Check.py
 
 If the last condition holds when  $T_1$ is a testing domain, then we deduce that $T_2$ is also a testing domain. It follows, that if $T_1,T_2,...,T_k \subseteq \Gamma$ are finite nonempty subsets such that InclCheck(lamb, N_j, T_j, T_(j+1)) returns True for all $j$ when $T_1$ is known to be a testing domain, then $T_k$ is also a testing domain. 
 
-Since $D^N[V]\cap \Gamma$ is of the order of $\lambda_0^{4N}$, we can see that the program has at least exponential runtime with respect to $N$. For this reason, we prefer to work with a sequence of checks of the program, rather than a direct application of the program InclCheck(lamb, N, T_1, T_k) for very large $N$.
+Since $D^N[V]\cap \Gamma$ is of the order of $\lambda_0^{4N}$, being the size of $D^N[V]\cap \Gamma$, we can see that the program has at least exponential runtime with respect to $N$. For this reason, we prefer to work with a sequence of checks of the program, rather than a direct application of the program InclCheck(lamb, N, T_1, T_k) for very large $N$.
 
 To minimize checks and since all sets for which we check set inclusions are a unions of intervals with respect to the 'z' coordinate, these sets are saved as  two connsecutive triples corresponding to the edges of the interval. They are considered as the 'z'-faces of the sets. The set inclusions are checked by whether by inequalities of the 'z'-intervals.
+
+
+_**Current results from the code:**_
+
+For $\lambda_0=4$, the tuple $\big( T_2 ,1\big)$ is a testing tuple. This follows since InclCheck(4, 1, K, T_1) and InclCheck(4, 2, T_1, T_2) both return True.
+
+For $\lambda_0=3$, the tuple $\big( T_1 ,1\big)$ is a testing tuple. This follows since InclCheck(3, 2, K3, K) and InclCheck(3, 2, K, T_1) both return True.
 
 _**References:**_
 
