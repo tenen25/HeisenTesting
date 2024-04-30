@@ -66,7 +66,11 @@ which has $x$ as a free variable. A version of this formula is implemented by th
 
 $$ \forall x\in D^N[V]\cap \Gamma \enspace \phi(x, \lambda_0, N, T_2, T_1)=  \forall x\in D^N[V]\cap \Gamma \enspace \exists \gamma\in \Gamma \enspace  I(x, \gamma, \lambda_0, N, T_2, T_1). $$
 
-This is implemented in the function InclCheck(lamb, N, T_2, T_1) in Aux_Check.py .
+This is implemented in the function InclCheck(lamb, N, T_2, T_1) in Aux_Check.py.
+
+We attach a picture of Algorithm 1 here for the sake of convenience:
+
+![Algorithm 1](https://github.com/tenen25/HeisenTesting/assets/75997072/4ffe97ad-bd8c-41ed-a627-912194068b05)
 
 If the last condition holds when  $T_1$ is a testing domain, then we deduce that $T_2$ is also a testing domain. It follows, that if $T_1,T_2,...,T_k \subseteq \Gamma$ are finite nonempty subsets such that InclCheck(lamb, N_j, T_j, T_(j+1)) returns True for all $j$ when $T_1$ is known to be a testing domain, then $T_k$ is also a testing domain. For that reason, the functions
 
