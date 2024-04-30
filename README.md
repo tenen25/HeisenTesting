@@ -93,7 +93,7 @@ For $\lambda_0=4$, the tuple $\big( T_2 ,1\big)$ is a testing tuple. This follow
 
 For $\lambda_0=3$, the tuple $\big( T_1 ,1\big)$ is a testing tuple. This follows since InclCheck(3, 2, K3, K) and InclCheck(3, 2, K, T_1) both return True.
 
-The corresponing gammas to x's are given in the files ~~FILL~~.
+The corresponing gammas to x's are given in the files ~~FILL IN LATER~~.
 
 _**References:**_
 
