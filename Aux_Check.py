@@ -12,13 +12,13 @@ def Check_x(x, lamb, N, shifted, fixed):
     check = False
     H = np.array([2 * lamb ** N, 2 * lamb ** N , 2 * lamb ** (2*N)])
     # H corresponds to possible jumps between adjacent element on the N-dilated lattice
+    # //The next line implements line 11 in Algorithm 1//
     rad_search =  (lamb**2) * (fixed[1][2]-fixed[0][2]+2)
     # 'rad_search' is equal to '4* lamb**(2*N)', which is how much we should shift the 'z' intervals of
     # of 'fixed'
     print("The radius for searching gamma in the z-direction is " + str(rad_search))
-
+    # //The following lines implement lines 14 to 16 in Algorithm 1// 
     # Generate the suspected XY values for 'gamma' which are closest to 'x'
-
     search_set = XY_Lattice_Approximant(x, lamb, N)
     # 'z_center' is the closest 'z'-values in the N-dilated lattice below x[2]
     z_center = int(x[2]/ H[2])
@@ -31,19 +31,20 @@ def Check_x(x, lamb, N, shifted, fixed):
                     # Generate 'gamma' with gamma[2] = z_temp ranging on closest
                     # possible XY values
                     gamma = (int(xy_gamma[0]), int( xy_gamma[1]), int(z_temp))
-                    # Shifts 'fixed' by the generated 'gamma'
-                    Faces_shift = ShiftFaces(fixed, gamma)
-                    # check the containment of shifted in Faces_shift
-                    check = CheckContain(Faces_shift, shifted)
+                    # \\The following line implements line 17 in Algorithm 1\\
+                    Faces_shift = ShiftFaces(fixed, gamma)   # Shifts 'fixed' by the generated 'gamma'
+                    # \\The following line implements line 18 in Algorithm 1\\
+                    check = CheckContain(Faces_shift, shifted)   # check the containment of shifted in Faces_shift
                     
                     if check:
                         gamma_return = gamma    #The correct gamma for said x
                         end_time = time.time()
                         print("Run time to check at x=" + str(x) + " is " + str(end_time - start_time))
+                        # \\The following implements line 19 in Algorithm 1\\
                         return [True, gamma_return]     # return value if a
                                                         # gamma is found
         if r == 0: continue
-   # In case no suitable 'gamma' is found 
+   # In case no suitable 'gamma' is found \\Implements line 22 in Algorithm 1\\
    if check == False: print("For " + str(x) +" with N="+str(N)+ " and lamb="+ str(lamb)+
                              ", there is no corresponding gamma.")
                                                 # In case no gamma is found
@@ -57,7 +58,9 @@ def InclCheck(lamb, N, init, known):
   # checks whether the set inclusion hold for all x in the set D^N[V] intersected with Gamma
     start_time = time.time()
     D = np.array([lamb, lamb, lamb**2])         #The dilation in each coordinate
+    # //The next line implements line 9 in Alogrithm 1//
     DV_N = N_Dilat(lamb, N)                     #DV_N is is D^N[V] intersected with Gamma
+    # //The next line implements line 8 in Algorithm 1//
     W = FundemFaceIter(lamb, N, init)           #The 'z'-faces of the V(N,init) set
     end_time = time.time()
     print("Finished preparatory computations after "+ str(end_time-start_time))
@@ -65,12 +68,13 @@ def InclCheck(lamb, N, init, known):
 
     #This is the list of gamma corresponding to 'x'-s satisfying the necessary inclusion
     gammaTox_lst = [ ]
+    # //The next loop implements line 12 in algorithm 1//
     for x in DV_N:
     # We loop on all x in D^N[V] to check the condition
         tru_val = False
 
-        #  shift the list 'known' by a lattice vector 'x'
-        K_shift = ShiftFaces(known, x)   
+        # //The next line implements line 13 in Algorithm 1//
+        K_shift = ShiftFaces(known, x)     #  shift the list 'known' by a lattice vector 'x' 
         #  checks whether there is a 'gamma' satisfying the desired set inclusion 
         # for the current 'x'
         x_output = Check_x(x, lamb, N, K_shift, W)
@@ -96,7 +100,8 @@ def XY_Range(lst):                      # for a list of triples corresponding
     
             
 def CheckContain(lst_set1, lst_set2):    
-   #determines whether 'z'-intervals defined by lst_set1 by is superset  
+   #determines whether 'z'-intervals defined by lst_set1 by is superset
+   # \\ This program implements line 18 in Algorithm 1, with respect to how we saved the sets\\
    # of lst_set2  
     time_start_tot = time.time()
    # saves the possible XY values of elements in lst_set2
