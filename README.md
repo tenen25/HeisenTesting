@@ -33,7 +33,7 @@ The following sets are saved to the memory prior to the final check:
 
 **Theoretical description of code:**
 
-The program implements Algorithm 1 in [BBPT] to check whether a set is a testing domain for substitution data of the form $\big( \mathcal{A}, \lambda_0, S_0 \big)$ for dilation data $\Big( H_3(\mathbb{R}), d_H, (D_\lambda)_{\lambda>0}, H_3(2\mathbb{Z}), [-1,1)^3  \Big)$. **We note that the user can not the input dilation datum, as we are only dealing with the same dilation datum in the Heisenberg group.** 
+The program implements Algorithm 1 in [BBPT] to check whether a set is a testing domain for substitution data of the form $\big( \mathcal{A}, \lambda_0, S_0 \big)$ for dilation data $\Big( H_3(\mathbb{R}), d_H, (D_\lambda)_{\lambda>0}, H_3(2\mathbb{Z}), [-1,1)^3  \Big)$. **We note that the user can not change the input dilation datum, as we are only dealing with the same dilation datum in the Heisenberg group.** 
 We attach a picture of Algorithm 1 here for the sake of convenience:
 
 ![Algorithm 1](https://github.com/tenen25/HeisenTesting/assets/75997072/4ffe97ad-bd8c-41ed-a627-912194068b05)
