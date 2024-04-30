@@ -25,10 +25,10 @@ The sets are input as lists of triples describing 'z'-intervals. The even or odd
 _**Preliminary computations:**_
 
 The following sets are saved to the memory prior to the final check:
-(i) $K = V(1)\cap H_3(2\mathbb{Z})$, 
-(ii) $K3 = V(2)\cap H_3(2\mathbb{Z})$ for the case when $\lambda_0=3$, 
-(iii) $T_1 = \\{ -2,0\\}^2\times \\{-6,-4,...,4,6\\}$, 
-(iv) $T_2 =\\{ 0 , -2 \\}^2 \times \\{ -4,-2,0,2 \\}$.
+(1) $K = V(1)\cap H_3(2\mathbb{Z})$, 
+(2) $K3 = V(2)\cap H_3(2\mathbb{Z})$ for the case when $\lambda_0=3$, 
+(3) $T_1 = \\{ -2,0\\}^2\times \\{-6,-4,...,4,6\\}$, 
+(4) $T_2 =\\{ 0 , -2 \\}^2 \times \\{ -4,-2,0,2 \\}$.
 
 **Theoretical description of code:**
 
@@ -74,6 +74,12 @@ To minimize checks and since all sets for which we check set inclusions are a un
 
 
 _**Current results from the code:**_
+
+Recall the sets we defined earlier: 
+(1) $K = V(1)\cap H_3(2\mathbb{Z})$, 
+(2) $K3 = V(2)\cap H_3(2\mathbb{Z})$ for the case when $\lambda_0=3$, 
+(3) $T_1 = \\{ -2,0\\}^2\times \\{-6,-4,...,4,6\\}$, 
+(4) $T_2 =\\{ 0 , -2 \\}^2 \times \\{ -4,-2,0,2 \\}$.
 
 For $\lambda_0=4$, the tuple $\big( T_2 ,1\big)$ is a testing tuple. This follows since InclCheck(4, 1, K, T_1) and InclCheck(4, 2, T_1, T_2) both return True.
 
