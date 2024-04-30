@@ -52,6 +52,7 @@ def AltDilatV(lamb):                    # Compute V(1,e) intersected with
     return DV1
 
 
+  
 # return V(N,init_set) intersected with the lattice for stretch factor 'lamb' and 'init_set' as standard set
 def FundemDomIter(lamb, N, init_set):
     # D is the dilation vector
@@ -116,6 +117,7 @@ def XY_Lattice_Approximant(x, lamb, N):         # returns set of all closest
             temp_gamma = temp_gamma * D_N
             approx_set.add(tuple(temp_gamma))
     return approx_set
+
 
 def ShiftFaces(F, vect):                    # returns a shift of the 'z'-faces
                                             # of a box 'F' by a shift of 'vect'
@@ -252,8 +254,10 @@ def Project_to_Axis(var_set, axis_num):    #Project a set onto an axis to see va
     projected_list = sorted(projected_set)
     return projected_list
 
-# Save arrays to txt file
-def Save_Arrays_to_Text(arr, N, known_name, check_name):
+
+# A program to save pairs of gamma and x values satisfying the desired set inclusions
+def Save_Arrays_to_Text(arr, N, known_name, check_name):    
+
     file = open(check_name+"_to_"+known_name, "w+")
     start_str = "The condition is satisfied for " + check_name + " with respect to " \
     +  known_name +"and " + str(N) + "with the following shift information:\n"

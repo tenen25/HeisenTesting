@@ -7,11 +7,13 @@ from Aux_0 import *
 from Aux_Check import *
 
 
+
 # Needed paramaters from the user are: 
 # the stretch factor 'lamb',
 # the iteration number 'N',
 # the known testing domain 'known_set',
 # the suspected testing domain 'init_set'
+
 
 
 # Set the underlying stretch factor

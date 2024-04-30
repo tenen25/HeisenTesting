@@ -2,10 +2,10 @@
 Python program to numerically check testing domains in the Heisenberg group described in [BBPT], _Approximations of symbolic substitution systems_.
 
 _**Needed Python libraries:**_
-
 (1) Numpy
 (2) itertools
 (3) math
+
 
 _**Parameters needed from user:**_
 
@@ -33,6 +33,7 @@ The following sets are saved to the memory prior to the final check:
 **Theoretical description of code:**
 
 The program implements algorithm in upcoming paper to check whether a set is a testing domain for substitution data of the form $\big( \mathcal{A}, \lambda_0, S_0 \big)$ for dilation data $\Big( H_3(\mathbb{R}), d_H, (D_\lambda)_{\lambda>0}, H_3(2\mathbb{Z}), [-1,1)^3  \Big)$. We recall the meaning of the previous expressions. The action in $H_3(\mathbb{R})$ is given by
+
 
 $$(x,y,z)\cdot (a,b,c):= \big( x+a, y+b, z+c +\frac{1}{2}(xb-ay) \big). $$
 
@@ -66,7 +67,7 @@ $$ \forall x\in D^N[V]\cap \Gamma \enspace \phi(x, \lambda_0, N, T_2, T_1)=  \fo
 
 This is implemented in the function InclCheck(lamb, N, T_2, T_1) in Aux_Check.py .
 
-If the last condition holds when  $T_1$ is a testing domain, then we deduce that $T_2$ is also a testing domain. It follows, that if $T_1,T_2,...,T_k \subseteq \Gamma$ are finite nonempty subsets such that InclCheck(lamb, N_j, T_j, T_(j+1)) returns True for all $j$ when $T_1$ is known to be a testing domain, then $T_k$ is also a testing domain. 
+If the last condition holds when  $T_1$ is a testing domain, then we deduce that $T_2$ is also a testing domain. It follows, that if $T_1,T_2,...,T_k \subseteq \Gamma$ are finite nonempty subsets such that InclCheck(lamb, N_j, T_j, T_(j+1)) returns True for all $j$ when $T_1$ is known to be a testing domain, then $T_k$ is also a testing domain. For that reason, the functions
 
 Since $D^N[V]\cap \Gamma$ is of the order of $\lambda_0^{4N}$, being the size of $D^N[V]\cap \Gamma$, we can see that the program has at least exponential runtime with respect to $N$. For this reason, we prefer to work with a sequence of checks of the program, rather than a direct application of the program InclCheck(lamb, N, T_1, T_k) for very large $N$.
 
@@ -91,4 +92,6 @@ _**References:**_
 
 [BHP] S. Beckus, T. Hartnick, and F. Pogorzelski. Symbolic substitution systems beyond abelian groups. https://arxiv.org/abs/2109.15210
 
+
+To minimize checks and since all sets for which we check set inclusions are a unions of intervals with respect to the 'z' coordinate, these sets are saved as  two connsecutive triples corresponding to the edges of the interval. They are considered as the 'z'-faces of the sets. The set inclusions are checked by whether by inequalities of the 'z'-intervals.
 
