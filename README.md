@@ -93,5 +93,4 @@ _**References:**_
 [BHP] S. Beckus, T. Hartnick, and F. Pogorzelski. Symbolic substitution systems beyond abelian groups. https://arxiv.org/abs/2109.15210
 
 
-To minimize checks and since all sets for which we check set inclusions are a unions of intervals with respect to the 'z' coordinate, these sets are saved as  two connsecutive triples corresponding to the edges of the interval. They are considered as the 'z'-faces of the sets. The set inclusions are checked by whether by inequalities of the 'z'-intervals.
 
