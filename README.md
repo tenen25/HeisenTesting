@@ -25,6 +25,7 @@ The sets are input as lists of triples describing 'z'-intervals. The even or odd
 _**Preliminary computations:**_
 
 The following sets are saved to the memory prior to the final check:
+
 (1) $K = V(1)\cap H_3(2\mathbb{Z})$, 
 (2) $K3 = V(2)\cap H_3(2\mathbb{Z})$ for the case when $\lambda_0=3$, 
 (3) $T_1 = \\{ -2,0\\}^2\times \\{-6,-4,...,4,6\\}$, 
@@ -77,6 +78,7 @@ To minimize checks and since all sets for which we check set inclusions are a un
 _**Current results from the code:**_
 
 Recall the sets we defined earlier: 
+
 (1) $K = V(1)\cap H_3(2\mathbb{Z})$, 
 (2) $K3 = V(2)\cap H_3(2\mathbb{Z})$ for the case when $\lambda_0=3$, 
 (3) $T_1 = \\{ -2,0\\}^2\times \\{-6,-4,...,4,6\\}$, 
@@ -85,6 +87,8 @@ Recall the sets we defined earlier:
 For $\lambda_0=4$, the tuple $\big( T_2 ,1\big)$ is a testing tuple. This follows since InclCheck(4, 1, K, T_1) and InclCheck(4, 2, T_1, T_2) both return True.
 
 For $\lambda_0=3$, the tuple $\big( T_1 ,1\big)$ is a testing tuple. This follows since InclCheck(3, 2, K3, K) and InclCheck(3, 2, K, T_1) both return True.
+
+The corresponing gammas to x's are given in the files ~~FILL~~.
 
 _**References:**_
 
