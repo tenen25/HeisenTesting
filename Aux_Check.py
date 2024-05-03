@@ -26,6 +26,8 @@ def Check_x(x, lamb, N, shifted, fixed):
     # in jumps corresponding to H[2]
     for r in range(0, int(rad_search), H[2] ):
         for sign in range(2):
+           # The next line is to avoid redundancy when r==0
+           if r == 0 and sign==1: continue
             z_temp = (-1)**sign * r + z_center 
             for xy_gamma in search_set:
                     # Generate 'gamma' with gamma[2] = z_temp ranging on closest
@@ -43,7 +45,6 @@ def Check_x(x, lamb, N, shifted, fixed):
                         # \\The following implements line 19 in Algorithm 1\\
                         return [True, gamma_return]     # return value if a
                                                         # gamma is found
-        if r == 0: continue
    # In case no suitable 'gamma' is found \\Implements line 22 in Algorithm 1\\
    if check == False: print("For " + str(x) +" with N="+str(N)+ " and lamb="+ str(lamb)+
                              ", there is no corresponding gamma.")
