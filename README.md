@@ -1,5 +1,5 @@
 # HeisenTesting
-Python program to numerically check testing domains in the Heisenberg group described in [BBPT], _Approximations of symbolic substitution systems_.
+Python program to numerically check testing domains in the Heisenberg group described in the paper [BBPT], _Approximations of symbolic substitution systems_.
 
 _**Needed Python libraries:**_
 (1) Numpy
@@ -13,18 +13,27 @@ Parameters needed from the user are fed in the main function. They are:
 
 (1) Underlying stretch factor - 'lamb'.
 (2) Iteration number - 'N'.
-(3) Set which is known to be a testing domain - 'known_set'.
+(3) Set which is known to be a valid testing domain - 'known_set'.
 (4) Set which is suspected to be a testing domain - 'init_set'.
 
-The sets are input as lists of triples describing 'z'-intervals. The even or odd entries in the list describe the bottom or upper part of the 'z'-interval accordingly. For example the set $\\{-2,0\\}^2\times \\{-6,-4,-2,0,2\\}$ can be saved as
+The sets in (3),(4) above are expected to be boxes. Those sets are expected to be given by the user as lists of triples.
+Each pair in the list is of the form (x,y,z_min),(x,y,z_max), where z_min and z_max are the boundaries of the corresponding 'z'-interval.
+For example the set $\\{-2,0\\}\times\{-4,-2,0\\}\times \\{-6,-4,-2,0,2\\}$ can be saved as
 
 // 
-[ (-2,-2,-6), (-2,-2,2), (-2,0,-6), (-2,0,2), (0,-2,-6), (0,-2,2), (0,0,-6), (0,0,2)  ]
+[ (-2,-4,-6), (-2,-4,2), (-2,-2,-6), (-2,-2,2), (-2,0,-6), (-2,0,2), (0,-4,-6), (0,-4,2), (0,-2,-6), (0,-2,2), (0,0,-6), (0,0,2)  ]
  //
 
 _**Preliminary computations:**_
 
 The following sets are saved to the memory prior to the final check:
+
+RB - some of the following notations are not clear without reading the paper. I am not suggesting that you put all explanations here, 
+but at least write exactly in which definitions\sections in the paper these notations are introduced.
+When I continued reading I noticed that some of these notations are explained later in this readme. So, either bring them earlier, or let the reader know that these notation are explained below. We can discuss what is better when we meet.
+
+RB - Also, I noticed that you also write those sets again at the end of the document. So, do you really need to write them here as well?
+Maybe it is enough to write them only at the end?
 
 (1) $K = V(1)\cap H_3(2\mathbb{Z})$, 
 (2) $K3 = V(2)\cap H_3(2\mathbb{Z})$ for the case when $\lambda_0=3$, 
@@ -33,7 +42,7 @@ The following sets are saved to the memory prior to the final check:
 
 **Theoretical description of code:**
 
-The program implements Algorithm 1 in [BBPT] to check whether a set is a testing domain for substitution data of the form $\big( \mathcal{A}, \lambda_0, S_0 \big)$ for dilation data $\Big( H_3(\mathbb{R}), d_H, (D_\lambda)_{\lambda>0}, H_3(2\mathbb{Z}), [-1,1)^3  \Big)$. **We note that the user can not change the input dilation datum, as we are only dealing with the same dilation datum in the Heisenberg group.** 
+The program implements Algorithm 1 in [BBPT] to check whether a set is a testing domain for substitution data of the form $\big( \mathcal{A}, \lambda_0, S_0 \big)$ for dilation data $\Big( H_3(\mathbb{R}), d_H, (D_\lambda)_{\lambda>0}, H_3(2\mathbb{Z}), [-1,1)^3  \Big)$. **We note that the user can not change the input dilation datum, as we are only dealing with the dilation datum which corresponds to the Heisenberg group.** 
 We attach a picture of Algorithm 1 here for the sake of convenience:
 
 ![Algorithm 1](https://github.com/tenen25/HeisenTesting/assets/75997072/4ffe97ad-bd8c-41ed-a627-912194068b05)
@@ -54,6 +63,7 @@ Using these notions, the sets $V(n,M)$, for $n\in \mathbb{N}$ and $M\Subset \Gam
 $$ xT_1 \subseteq D^N(\gamma_x) V(N,T_2). $$
 
 To this end we define three logical formulas:
+RB - what do you mean by 'logical formulas'?
 
 (1) The formula $I(x, \gamma, \lambda_0, N, T_2, T_1)$ is defined as
 
@@ -77,7 +87,7 @@ If the last condition holds when  $T_1$ is a testing domain, then we deduce that
 
 Since $D^N[V]\cap \Gamma$ is of the order of $\lambda_0^{4N}$, being the size of $D^N[V]\cap \Gamma$, we can see that the program has at least exponential runtime with respect to $N$. For this reason, we prefer to work with a sequence of checks of the program, rather than a direct application of the program InclCheck(lamb, N, T_1, T_k) for very large $N$.
 
-To minimize checks and since all sets for which we check set inclusions are a unions of intervals with respect to the 'z' coordinate, these sets are saved as  two connsecutive triples corresponding to the edges of the interval. They are considered as the 'z'-faces of the sets. The set inclusions are checked by whether by inequalities of the 'z'-intervals. ~~Add PDF file explaining change of algorithm for efficiency.~~
+To minimize checks and since all sets for which we check set inclusions are unions of intervals with respect to the 'z' coordinate, these sets are saved as  two connsecutive triples corresponding to the edges of the interval. They are considered as the 'z'-faces of the sets. The set inclusions are checked by whether by inequalities of the 'z'-intervals. ~~Add PDF file explaining change of algorithm for efficiency.~~
 
 
 _**Current results from the code:**_
