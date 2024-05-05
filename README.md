@@ -74,6 +74,7 @@ $$ \forall x\in D^N[V]\cap \Gamma \enspace \phi(x, \lambda_0, N, T_2, T_1)=  \fo
 This is implemented in the function InclCheck(lamb, N, T_2, T_1) in Aux_Check.py.
 
 If the last condition holds when  $T_1$ is a testing domain, then we deduce that $T_2$ is also a testing domain. It follows, that if $T_1,T_2,...,T_k \subseteq \Gamma$ are finite nonempty subsets such that InclCheck(lamb, N_j, T_j, T_(j+1)) returns True for all $j$ when $T_1$ is known to be a testing domain, then $T_k$ is also a testing domain. For that reason, the functions
+RB - sentence seems to be cut?
 
 Since $D^N[V]\cap \Gamma$ is of the order of $\lambda_0^{4N}$, being the size of $D^N[V]\cap \Gamma$, we can see that the program has at least exponential runtime with respect to $N$. For this reason, we prefer to work with a sequence of checks of the program, rather than a direct application of the program InclCheck(lamb, N, T_1, T_k) for very large $N$.
 
@@ -91,9 +92,12 @@ Recall the sets we defined earlier:
 
 For $\lambda_0=4$, the tuple $\big( T_2 ,1\big)$ is a testing tuple. This follows since InclCheck(4, 1, K, T_1) and InclCheck(4, 2, T_1, T_2) both return True.
 
+RB - did you define what is a testing tuple?
+
 For $\lambda_0=3$, the tuple $\big( T_1 ,1\big)$ is a testing tuple. This follows since InclCheck(3, 2, K3, K) and InclCheck(3, 2, K, T_1) both return True.
 
 The corresponing gammas to x's are given in the files ~~FILL~~.
+RB - the last sentence is not clear
 
 _**References:**_
 
