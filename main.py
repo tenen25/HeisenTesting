@@ -15,62 +15,69 @@ from Aux_Check import *
 # the suspected testing domain 'init_set'
 
 
+###################### User Input ###########################
 
 # Set the underlying stretch factor
-lamb = 3
+lamb = 4
 
-
+# Set the iteration number for the algorithm
+N = 2
 
             
 
 #################### Auxiliary computations #####################
 
+# We define the dilation vector
+D = np.array([lamb, lamb, lamb**2])
 # V equals V(0,e) intersected with the lattice
 V = [np.array([0, 0, 0])]
-
+# T will be the suspected testing domain
 
 
 # Coordinates for the XY projection of the boxes
 x_start = -2
 x_end = 0
 
-# The following two sets are sets which we hope are smaller
+# The following sets are sets which we hope are smaller
 # testing domains
 T_fin = GenerateFaces(-2, 0,x_start,x_end)
 
 
 #The following are sets which we can show are testing domains
-T_2 = GenerateFaces(-2*2, 2,-2,0)
+T_2 = GenerateFaces(-2*2, 2,x_start,x_end)
 
-T_1 = GenerateFaces(-3*2, 3*2,-2,0)
+T_1 = GenerateFaces(-3*2, 3*2,x_start,x_end)
 
-# K is known theoretic testing domain for 'lamb' greater than 4
+# K is a proven testing domain for 'lamb' greater than 4
 K = DilatEdge(lamb)
 
-# K3 is known theoretic testing domain for 'lamb' 3
+# K3 is a proven testing domain for 'lamb' 3
 K3 = FundemFaceIter(3, 2, V)
 
-#########################################################
+
+#################### Suggested Run Options  #########################
+
+### We include several suggestsions to run with the function 'InclCheck'
+### Uncomment only ONE of the following options to run the function with the desired parameters 
 
 
-#################### User input #########################
+# Option 1 #
+## result = InclCheck(lamb, 2, T_1, K)
 
-# Set the iteration number for the algorithm
-N = 1
+# Option 2 #
+## result = InclCheck(3, 2, K, K3)
 
-#Plug in the suspected testing domain
-init_set = T_3                   # set which we see whether is testing domain
+# Option 3 #
+## result = InclCheck(3, 2, T_1, K)
 
+# Option 4 #
+## result = InclCheck(lamb, N, T_2, T_1)
 
-#Plug in the known testing domain
-known_set = T_2               # set which is 'known' to be a testing domain
+# Option 5 #
+## result = InclCheck(lamb, N, T_fin, T_2)
 
-
-
-#Check the inclusion condition
-gamma_lst = InclCheck(lamb, N, init_set, known_set)
 
 ###################### List of gammas for x ########################
    
-gamma_lst = gamma_lst[1]             #the list of tuples of (x,gamma)
-                                     #satisfying the set inclusion condition
+gamma_lst = result[1]             
+#the list of tuples of (x,gamma) satisfying the set inclusion condition
