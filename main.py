@@ -25,11 +25,9 @@ lamb = 3
 
 #################### Auxiliary computations #####################
 
-# We define the dilation vector
-D = np.array([lamb, lamb, lamb**2])
 # V equals V(0,e) intersected with the lattice
 V = [np.array([0, 0, 0])]
-# T will be the suspected testing domain
+
 
 
 # Coordinates for the XY projection of the boxes
@@ -42,9 +40,9 @@ T_fin = GenerateFaces(-2, 0,x_start,x_end)
 
 
 #The following are sets which we can show are testing domains
-T_2 = GenerateFaces(-2*2, 2,x_start,x_end)
+T_2 = GenerateFaces(-2*2, 2,-2,0)
 
-T_1 = GenerateFaces(-3*2, 3*2,x_start,x_end)
+T_1 = GenerateFaces(-3*2, 3*2,-2,0)
 
 # K is known theoretic testing domain for 'lamb' greater than 4
 K = DilatEdge(lamb)
