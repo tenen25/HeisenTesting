@@ -47,19 +47,19 @@ $$ xT_1 \subseteq D^N(\gamma_x) V(N,T_2). $$
 
 To this end we define three checks:
 
-(1) The formula $I(x, \gamma, \lambda_0, N, T_2, T_1)$, returning True or False if the following set inclusion holds or not.
+**(1)** The formula $I(x, \gamma, \lambda_0, N, T_2, T_1)$, returning True or False if the following set inclusion holds or not.
 
 $$ xT_1 \subseteq D^N(\gamma) V(N,T_2), $$
 
 which has $x$ and $\gamma$ as parameters. A version of this check is implemented in line 25 of Aux_Check.py . This check implements line 15 in the algorithm.
 
-(2) The check
+**(2)** The check
 
 $$ \exists \gamma\in \Gamma \enspace I(x, \gamma, \lambda_0, N, T_2, T_1) , $$
 
 which does not have $\gamma$ as a parameter. This check is implemented by the functions Check_x(x, lamb, N, shifted, fixed) in  Aux_Check.py . This check implements lines 15 to 21 in the algorithm.
 
-(3) The check
+**(3)** The check
 
 $$  \forall x\in D^N[V]\cap \Gamma \enspace \exists \gamma\in \Gamma \enspace  I(x, \gamma, \lambda_0, N, T_2, T_1). $$
 
@@ -86,7 +86,7 @@ For $\lambda_0=4$, the tuple $\big( T_2 ,1\big)$ is a testing tuple. This follow
 
 For $\lambda_0=3$, the tuple $\big( T_1 ,1\big)$ is a testing tuple. This follows since InclCheck(3, 2, K3, K) and InclCheck(3, 2, K, T_1) both return True.
 
-The corresponing gammas to x's are given in the files ~~FILL~~.
+To acheive these results, we have to verify check **(2)** for every $x$, and find a suitable $\gamma$ for every $x$. The corresponing list of gammas to x's are given in the files ~~FILL~~.
 
 _**References:**_
 
