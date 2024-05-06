@@ -27,11 +27,9 @@ N = 2
 
 #################### Auxiliary computations #####################
 
-# We define the dilation vector
-D = np.array([lamb, lamb, lamb**2])
 # V equals V(0,e) intersected with the lattice
 V = [np.array([0, 0, 0])]
-# T will be the suspected testing domain
+
 
 
 # Coordinates for the XY projection of the boxes
