@@ -42,9 +42,11 @@ T_fin = GenerateFaces(-2, 0,x_start,x_end)
 
 
 #The following are sets which we can show are testing domains
-T_2 = GenerateFaces(-2*2, 2,-2,0)
+T_1 = GenerateFaces(-6*2, 6*2,-2,0)
 
-T_1 = GenerateFaces(-3*2, 3*2,-2,0)
+T_2 = GenerateFaces(-3*2, 3*2,-2,0)
+
+T_3 = GenerateFaces(-3*2, 2*2,-2,0)
 # GenerateFaces is a function improted from Aux_0 to generate box-like sets
 
 # K is a proven testing domain for 'lamb' greater than 4
@@ -61,18 +63,21 @@ K3 = FundemFaceIter(3, 2, V)
 
 
 # Option 1 #
-## result = InclCheck(lamb, 2, T_1, K)
+## result = InclCheck(lamb, 1, T_1, K)
 
 # Option 2 #
-## result = InclCheck(3, 2, K, K3)
+## result = InclCheck(lamb, 1, T_2, T_1)
 
 # Option 3 #
-## result = InclCheck(3, 2, T_1, K)
+## result = InclCheck(3, 2, K, K3)
 
 # Option 4 #
-## result = InclCheck(lamb, N, T_2, T_1)
+## result = InclCheck(3, 2, T_2, K)
 
 # Option 5 #
+## result = InclCheck(3, 2, T_3, T_2)
+
+# Option 6 #
 ## result = InclCheck(lamb, N, T_fin, T_2)
 
 
