@@ -22,14 +22,6 @@ The sets are input as lists of triples describing 'z'-intervals. The even or odd
 [ (-2,-2,-6), (-2,-2,2), (-2,0,-6), (-2,0,2), (0,-2,-6), (0,-2,2), (0,0,-6), (0,0,2)  ]
  //
 
-_**Preliminary computations:**_
-
-The following sets are saved to the memory prior to the final check:
-
-(1) $K = V(1)\cap H_3(2\mathbb{Z})$, 
-(2) $K3 = V(2)\cap H_3(2\mathbb{Z})$ for the case when $\lambda_0=3$, 
-(3) $T_1 = \\{ -2,0\\}^2\times \\{-6,-4,...,4,6\\}$, 
-(4) $T_2 =\\{ 0 , -2 \\}^2 \times \\{ -4,-2,0,2 \\}$.
 
 **Theoretical description of code:**
 
