@@ -36,7 +36,7 @@ def Check_x(x, lamb, N, shifted, fixed):
             temp = temp/H[2]
             poss_shift[0] = math.ceil(temp[0])*H[2]
             poss_shift[1] = math.floor(temp[1])*H[2]
-            # The next lines runs over all possible shifts of the form ' m* H[2] '
+            # The next lines runs over all possible 'z'-shifts of the form ' m * H[2] '
             for move in range( poss_shift[0], poss_shift[1]+1 ,H[2] ):
                 check = True      #There is a valid gamma shift
                 gamma[2] = gamma[2] + move    #Updates 'gamma' to valid value
