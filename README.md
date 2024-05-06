@@ -16,10 +16,11 @@ Parameters needed from the user are fed in the main function. They are:
 (3) Set which is known to be a testing domain - 'known_set'.
 (4) Set which is suspected to be a testing domain - 'init_set'.
 
-The sets are input as lists of triples describing 'z'-intervals. The even or odd entries in the list describe the bottom or upper part of the 'z'-interval accordingly. For example the set $\\{-2,0\\}^2\times \\{-6,-4,-2,0,2\\}$ can be saved as
+The sets in (3),(4) above are expected to be union of 'z' intervals. Those sets are expected to be given by the user as lists of triples.Each pair in the list is of the form (x,y,z_min),(x,y,z_max), where z_min and z_max are the boundaries of the corresponding 'z'-interval.
+The sets are input as lists of triples describing 'z'-intervals. The even or odd entries in the list describe the bottom or upper part of the 'z'-interval accordingly. For example the set $\\{-2,0\\} \times \\{ -4,-2, 0 \\} \times \\{-6,-4,-2,0,2\\}$ can be saved as
 
 // 
-[ (-2,-2,-6), (-2,-2,2), (-2,0,-6), (-2,0,2), (0,-2,-6), (0,-2,2), (0,0,-6), (0,0,2)  ]
+[ (-2,-4,-6), (-2,-4,2), (-2,-2,-6), (-2,-2,2), (-2,0,-6), (-2,0,2), (0,-4,-6), (0,-4,2), (0,-2,-6), (0,-2,2), (0,0,-6), (0,0,2)  ]
  //
 
 
@@ -70,7 +71,7 @@ If check (3) holds when  $T_1$ is a testing domain, then we deduce that $T_2$ is
 Since $D^N[V]\cap \Gamma$ is of the order of $\lambda_0^{4N}$, being the size of $D^N[V]\cap \Gamma$, we can see that the program has at least exponential runtime with respect to $N$. For this reason, we prefer to work with a sequence of checks of the program, rather than a direct application of the program InclCheck(lamb, N, T_1, T_k) for very large $N$.
 
 Furthermore, we modify the algorithm given before to יhave a more efficient runtime.
-To minimize checks and since all sets for which we check set inclusions are a unions of intervals with respect to the 'z' coordinate, these sets are saved as  two connsecutive triples corresponding to the edges of the interval. They are considered as the 'z'-faces of the sets. The set inclusions are checked by whether by inequalities of the 'z'-intervals. ~~Add PDF file explaining change of algorithm for efficiency.~~
+To minimize checks and since all sets for which we check set inclusions are a unions of intervals with respect to the 'z' coordinate, these sets are saved as  two connsecutive triples corresponding to the edges of the interval. They are considered as the 'z'-faces of the sets. The set inclusions are checked by whether by inequalities of the 'z'-intervals, since the XY component has an explicit description. Moreover, searching for the possible $z$-coordinate of $\gamma$, reduces to solving when the the 'z'-intervalsof $xT_1$ are contained in 'z'-intervals of $D^N(\gamma_x) V(N,T_2)$. Both these simplifications in this case are further explained in the file _AlgoSimpl.pdf_.  ~~check PDF file explaining change of algorithm for efficiency.~~
 
 
 _**Current results from the code:**_
