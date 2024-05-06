@@ -45,30 +45,31 @@ Using these notions, the sets $V(n,M)$, for $n\in \mathbb{N}$ and $M\Subset \Gam
 
 $$ xT_1 \subseteq D^N(\gamma_x) V(N,T_2). $$
 
-To this end we define three logical formulas:
+To this end we define three checks:
 
-(1) The formula $I(x, \gamma, \lambda_0, N, T_2, T_1)$ is defined as
+(1) The formula $I(x, \gamma, \lambda_0, N, T_2, T_1)$, returning True or False if the following set inclusion holds or not.
 
 $$ xT_1 \subseteq D^N(\gamma) V(N,T_2), $$
 
-which has $x$ and $\gamma$ as free variables. A version of this is implemented in line 25 of Aux_Check.py .
+which has $x$ and $\gamma$ as parameters. A version of this check is implemented in line 25 of Aux_Check.py . This check implements line 15 in the algorithm.
 
-(2) The formula $\phi(x, \lambda_0, N, T_2, T_1)$ is defined as
+(2) The check
 
 $$ \exists \gamma\in \Gamma \enspace I(x, \gamma, \lambda_0, N, T_2, T_1) , $$
 
-which has $x$ as a free variable. A version of this formula is implemented by the functions Check_x(x, lamb, N, shifted, fixed) .
+which does not have $\gamma$ as a parameter. This check is implemented by the functions Check_x(x, lamb, N, shifted, fixed) in  Aux_Check.py . This check implements lines 15 to 21 in the algorithm.
 
-(3) The formula $\psi(x, \lambda_0, T_2, T_1 )$ is defined by
+(3) The check
 
-$$ \forall x\in D^N[V]\cap \Gamma \enspace \phi(x, \lambda_0, N, T_2, T_1)=  \forall x\in D^N[V]\cap \Gamma \enspace \exists \gamma\in \Gamma \enspace  I(x, \gamma, \lambda_0, N, T_2, T_1). $$
+$$  \forall x\in D^N[V]\cap \Gamma \enspace \exists \gamma\in \Gamma \enspace  I(x, \gamma, \lambda_0, N, T_2, T_1). $$
 
-This is implemented in the function InclCheck(lamb, N, T_2, T_1) in Aux_Check.py.
+This is implemented in the function InclCheck(lamb, N, T_2, T_1)  in Aux_Check.py, and does not have $x$ or $\gamma$ as its parameters. This check implements lines 12 to 23 in the algorithm.
 
-If the last condition holds when  $T_1$ is a testing domain, then we deduce that $T_2$ is also a testing domain. It follows, that if $T_1,T_2,...,T_k \subseteq \Gamma$ are finite nonempty subsets such that InclCheck(lamb, N_j, T_j, T_(j+1)) returns True for all $j$ when $T_1$ is known to be a testing domain, then $T_k$ is also a testing domain. 
+If check (3) holds when  $T_1$ is a testing domain, then we deduce that $T_2$ is also a testing domain. It follows, that if $T_1,T_2,...,T_k \subseteq \Gamma$ are finite nonempty subsets such that InclCheck(lamb, N_j, T_j, T_(j+1)) returns True for all $j$ when $T_1$ is known to be a testing domain, then $T_k$ is also a testing domain. 
 
 Since $D^N[V]\cap \Gamma$ is of the order of $\lambda_0^{4N}$, being the size of $D^N[V]\cap \Gamma$, we can see that the program has at least exponential runtime with respect to $N$. For this reason, we prefer to work with a sequence of checks of the program, rather than a direct application of the program InclCheck(lamb, N, T_1, T_k) for very large $N$.
 
+Furthermore, we modify the algorithm given before to run at a more efficient time.
 To minimize checks and since all sets for which we check set inclusions are a unions of intervals with respect to the 'z' coordinate, these sets are saved as  two connsecutive triples corresponding to the edges of the interval. They are considered as the 'z'-faces of the sets. The set inclusions are checked by whether by inequalities of the 'z'-intervals. ~~Add PDF file explaining change of algorithm for efficiency.~~
 
 
