@@ -84,7 +84,7 @@ We consider the following sets, which we show are testing domains:
 (1) $K = V(1)\cap H_3(2\mathbb{Z})$, 
 (2) $K3 = V(2)\cap H_3(2\mathbb{Z})$ for the case when $\lambda_0=3$, 
 (3) $T_1 = \\{ -2,0\\}^2\times \\{-12,-10,...,10,12\\}$, 
-(4) $T_2 =\\{ 0 , -2 \\}^2 \times \\{-6,-4,...,4,6\\}$. 
+(4) $T_2 =\\{ 0 , -2 \\}^2 \times \\{-6,-4,...,4,6\\}$, 
 (5) $T_3 =\\{ 0 , -2 \\}^2 \times \\{-6,-4,...,2,4\\}$.
 
 For $\lambda_0=4$, the tuple $\big( T_2 ,1\big)$ is a testing tuple. This follows since InclCheck(4, 1, K, T_1) and InclCheck(4, 1, T_1, T_2) both return True.
