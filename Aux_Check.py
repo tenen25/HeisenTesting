@@ -12,39 +12,38 @@ def Check_x(x, lamb, N, shifted, fixed):
     check = False
     H = np.array([2 * lamb ** N, 2 * lamb ** N , 2 * lamb ** (2*N)])
     # H corresponds to possible jumps between adjacent element on the N-dilated lattice
-    # //The next line implements line 11 in Algorithm 1//
-    rad_search =  (lamb**2) * (fixed[1][2]-fixed[0][2]+2)
-    # 'rad_search' is equal to '4* lamb**(2*N)', which is how much we should shift the 'z' intervals of
-    # of 'fixed'
-    print("The radius for searching gamma in the z-direction is " + str(rad_search))
     # //The following lines implement lines 14 to 16 in Algorithm 1// 
     # Generate the suspected XY values for 'gamma' which are closest to 'x'
     search_set = XY_Lattice_Approximant(x, lamb, N)
     # 'z_center' is the closest 'z'-values in the N-dilated lattice below x[2]
     z_center = int(x[2]/ H[2])
-    # we search possible 'gamma[2]' values concenterically around 'z_center'
-    # in jumps corresponding to H[2]
-    for r in range(0, int(rad_search), H[2] ):
-        for sign in range(2):
-           # The next line is to avoid redundancy when r==0
-           if r == 0 and sign==1: continue
-            z_temp = (-1)**sign * r + z_center 
-            for xy_gamma in search_set:
-                    # Generate 'gamma' with gamma[2] = z_temp ranging on closest
-                    # possible XY values
-                    gamma = (int(xy_gamma[0]), int( xy_gamma[1]), int(z_temp))
-                    # \\The following line implements line 17 in Algorithm 1\\
-                    Faces_shift = ShiftFaces(fixed, gamma)   # Shifts 'fixed' by the generated 'gamma'
-                    # \\The following line implements line 18 in Algorithm 1\\
-                    check = CheckContain(Faces_shift, shifted)   # check the containment of shifted in Faces_shift
-                    
-                    if check:
-                        gamma_return = gamma    #The correct gamma for said x
-                        end_time = time.time()
-                        print("Run time to check at x=" + str(x) + " is " + str(end_time - start_time))
-                        # \\The following implements line 19 in Algorithm 1\\
-                        return [True, gamma_return]     # return value if a
-                                                        # gamma is found
+    for xy_gamma in search_set:
+    # Generate 'gamma' with gamma[2] = z_center ranging on closest
+    # possible XY values
+        gamma = [int(xy_gamma[0]), int( xy_gamma[1]), int(z_center)]
+        # \\The following line implements line 17 in Algorithm 1\\
+        Faces_shift = ShiftFaces(fixed, gamma)   # Shifts 'fixed' by the generated 'gamma'
+        # Searches for the part of 'Faces_shift' that overlap 'shifted' in XY coordinates
+        aux_lst = FindCorrLst(Faces_shift, shifted)
+        # The next line computes bounds on possible shifts of 'z', such that 'aux_lst' 
+        # will be a superset of 'shifted'
+        poss_shift = PossShift(aux_lst, shifted)
+        if poss_shift==None or poss_shift[0]>poss_shift[1]:
+            # In the case where 'aux_lst' shifted cannot be a superset of 'shifted'
+            continue
+        else:
+            temp = np.array(poss_shift)
+            temp = temp/H[2]
+            poss_shift[0] = math.ceil(temp[0])*H[2]
+            poss_shift[1] = math.floor(temp[1])*H[2]
+            # The next lines runs over all possible shifts of the form ' m* H[2] '
+            for move in range( poss_shift[0], poss_shift[1]+1 ,H[2] ):
+                check = True      #There is a valid gamma shift
+                gamma[2] = gamma[2] + move    #Updates 'gamma' to valid value
+                end_time = time.time()
+                print("Run time to check at x=" + str(x) + " is " + str(end_time - start_time))
+                return [check_val, gamma]     # return value if a
+                                              # gamma is found
    # In case no suitable 'gamma' is found \\Implements line 22 in Algorithm 1\\
    if check == False: print("For " + str(x) +" with N="+str(N)+ " and lamb="+ str(lamb)+
                              ", there is no corresponding gamma.")
@@ -126,12 +125,42 @@ def CheckContain(lst_set1, lst_set2):
     #tru_val is TRUE if all interval inlusions hold, FALSE if one inclusion fails
     return tru_val
 
-def FindXY(lst, tup):                       # find first index of element with
-                                            # 'xy' values equal to tup
+def FindXY(lst, tup):                      
+   # find first index of element with XY values equal to 'tup'
     for ind in range(len(lst) ):
         if lst[ind][0]== tup[0] and lst[ind][1]==tup[1]:
             return ind
     return None
+
+def FindCorrLst(lst_set1, lst_set2):
+   # Finds elements in possible superset 'lst_set1' that have
+   # the same XY coordinates as those in 'lst_set2'
+    xy_lst = XY_Range(lst_set2)
+    CorrLst = []
+    for xy_tup in xy_lst:
+        ind = FindXY(lst_set1, xy_tup)
+        if ind == None: 
+            return None
+        for direc in range(2):
+            val = lst_set1[ind+direc]
+            CorrLst.append(val)
+    return CorrLst
+
+def PossShift(lst_set1, lst_set2):
+   # Computes bound for possible 'z' shift to satisfy the set inclusions
+    if lst_set1 == None: 
+        return None
+    interval_num = int( len(lst_set2)/2 )
+    for j in range(interval_num):
+        temp_low_bound = (lst_set2[2*j+1][2]-lst_set1[2*j+1][2])
+        temp_up_bound = (lst_set2[2*j][2]-lst_set1[2*j][2])
+        if j==0:
+            low_bound = temp_low_bound
+            up_bound = temp_up_bound
+        else:
+            low_bound = max(low_bound, temp_low_bound)
+            up_bound = min(up_bound , temp_up_bound)
+    return [low_bound, up_bound]
 
 ##################################### Other proposed functions ################
 
