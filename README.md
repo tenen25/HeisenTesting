@@ -40,9 +40,10 @@ The metric $d_H$ is left invariant metric on $H_3(\mathbb{R})$ satisfying $d_H \
 
 $$ \Vert (x,y,z) \Vert_{CK}:= \sqrt[4]{(x^2+y^2)^2+z^2}. $$
 
-For every $\lambda>0$, $D_\lambda: H_3(\mathbb{R}) \to H_3(\mathbb{R})$ is a dilation given by $D_\lambda(x,y,z)=\big( \lambda x, \lambda y, \lambda^2 z \big)$. $\lambda_0$ is some underlying stretch factor, for which $D_{\lambda_0}$ preserves the lattice $\Gamma:= H_3(2\mathbb{Z})$. $V=[-1,1)^3$ is a fundemantal testing domain for the lattice $\Gamma$. i.e., $H_3(\mathbb{R})= \underset{\gamma \in \Gamma}{\sqcup} \gamma V$. We denote $D:=D_{\lambda_0}$ for brevity. 
+For every $\lambda>0$, $D_\lambda: H_3(\mathbb{R}) \to H_3(\mathbb{R})$ is a dilation given by $D_\lambda(x,y,z)=\big( \lambda x, \lambda y, \lambda^2 z \big)$. $\lambda_0$ is some underlying stretch factor, for which $D_{\lambda_0}$ preserves the lattice $\Gamma:= H_3(2\mathbb{Z})$. $V=[-1,1)^3$ is a fundemantal domain for the lattice $\Gamma$. i.e., $H_3(\mathbb{R})= \underset{\gamma \in \Gamma}{\sqcup} \gamma V$. We denote $D:=D_{\lambda_0}$ for brevity. 
 
-Using these notions, the sets $V(n,M)$, for $n\in \mathbb{N}$ and $M\Subset \Gamma$, are defined recursively in [BHP], _Symbolic substitution systems beyond abelian groups_. $V(1,M):= D[M]\cdot D[V]$, and $V(1):=V(1,\{e\})$ is simply $D[V]$. $V(n+1,M)$ is given by $D[V(n,M)\cap \Gamma]\cdot V(1)$. Using these notations, the program checks for inputs lamb for underlying stretch factor $\lambda_0\in \mathbb{N}$, N for iteration number $N\in \mathbb{N}$, and two nonempty finite sets $T_1,T_2\subset \Gamma$ whether every $x\in D^N[V]\cap \Gamma$ there exists a $\gamma_x \in \Gamma$ such that
+Using these notions, the sets $V(n,M)$, for $n\in \mathbb{N}$ and $M\Subset \Gamma$, are defined recursively in [BHP], _Symbolic substitution systems beyond abelian groups_. $V(1,M):= D[M]\cdot D[V]$, and $V(1):=V(1,\{e\})$ is simply $D[V]$. $V(n+1,M)$ is given by $D[V(n,M)\cap \Gamma]\cdot V(1)$. 
+Using these notations, the program checks for inputs lamb for underlying stretch factor $\lambda_0\in \mathbb{N}$, N for iteration number $N\in \mathbb{N}$, and two nonempty finite sets $T_1,T_2\subset \Gamma$ whether every $x\in D^N[V]\cap \Gamma$ there exists a $\gamma_x \in \Gamma$ such that
 
 $$ xT_1 \subseteq D^N(\gamma_x) V(N,T_2). $$
 
@@ -66,6 +67,8 @@ $$  \forall x\in D^N[V]\cap \Gamma \enspace \exists \gamma\in \Gamma \enspace  I
 
 This is implemented in the function InclCheck(lamb, N, T_2, T_1)  in Aux_Check.py, and does not have $x$ or $\gamma$ as its parameters. This check implements lines 12 to 23 in the algorithm.
 
+Recall that nonempty set $T\Subset \Gamma$ is called  a testing domain if for every radius $r>0$ there exists an index $N_r\in \mathbb{N}$ such that for every $n>N_r$ and $x\in \Gamma$, there exists $\gamma_x\in \Gamma$ satisfying $x B(e,r) \subseteq D^n(\gamma_x) V(n,T)$. We say $(T,1)$ is a testing tuple, if additionaly $T\subseteq V(1,T)$.
+
 If check (3) holds when  $T_1$ is a testing domain, then we deduce that $T_2$ is also a testing domain. It follows, that if $T_1,T_2,...,T_k \subseteq \Gamma$ are finite nonempty subsets such that InclCheck(lamb, N_j, T_j, T_(j+1)) returns True for all $j$ when $T_1$ is known to be a testing domain, then $T_k$ is also a testing domain. 
 
 Since $D^N[V]\cap \Gamma$ is of the order of $\lambda_0^{4N}$, being the size of $D^N[V]\cap \Gamma$, we can see that the program has at least exponential runtime with respect to $N$. For this reason, we prefer to work with a sequence of checks of the program, rather than a direct application of the program InclCheck(lamb, N, T_1, T_k) for very large $N$.
@@ -83,7 +86,7 @@ Recall the sets we defined earlier:
 (3) $T_1 = \\{ -2,0\\}^2\times \\{-6,-4,...,4,6\\}$, 
 (4) $T_2 =\\{ 0 , -2 \\}^2 \times \\{ -4,-2,0,2 \\}$.
 
-For $\lambda_0=4$, the tuple $\big( T_2 ,1\big)$ is a testing tuple. This follows since InclCheck(4, 1, K, T_1) and InclCheck(4, 2, T_1, T_2) both return True.
+For $\lambda_0=4$, the tuple $\big( T_1 ,1\big)$ is a testing tuple. This follows since InclCheck(4, 2, K, T_1) returns True. ~~This follows since InclCheck(4, 1, K, T_1) and InclCheck(4, 2, T_1, T_2) both return True.~~
 
 For $\lambda_0=3$, the tuple $\big( T_1 ,1\big)$ is a testing tuple. This follows since InclCheck(3, 2, K3, K) and InclCheck(3, 2, K, T_1) both return True.
 
