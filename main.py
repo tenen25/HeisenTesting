@@ -44,9 +44,10 @@ T_fin = GenerateFaces(-2, 0,x_start,x_end)
 
 
 #The following are sets which we can show are testing domains
-T_2 = GenerateFaces(-2*2, 2,x_start,x_end)
+T_2 = GenerateFaces(-2*2, 2,-2,0)
 
-T_1 = GenerateFaces(-3*2, 3*2,x_start,x_end)
+T_1 = GenerateFaces(-3*2, 3*2,-2,0)
+# GenerateFaces is a function improted from Aux_0 to generate box-like sets
 
 # K is a proven testing domain for 'lamb' greater than 4
 K = DilatEdge(lamb)
