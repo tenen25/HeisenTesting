@@ -32,6 +32,8 @@ def Check_x(x, lamb, N, shifted, fixed):
             # In the case where 'aux_lst' shifted cannot be a superset of 'shifted'
             continue
         else:
+            # We check whether there is an integer of the form ' m * H[2] '
+            # between 'poss_shift[0]' and 'poss_shift[1]'
             temp = np.array(poss_shift)
             temp = temp/H[2]
             poss_shift[0] = math.ceil(temp[0])*H[2]
@@ -127,9 +129,11 @@ def CheckContain(lst_set1, lst_set2):
 
 def FindXY(lst, tup):                      
    # find first index of element with XY values equal to 'tup'
+   # returns 'None' if no such index exists
     for ind in range(len(lst) ):
         if lst[ind][0]== tup[0] and lst[ind][1]==tup[1]:
             return ind
+   # The following line returns 'None' if no index was found 
     return None
 
 def FindCorrLst(lst_set1, lst_set2):
@@ -139,7 +143,10 @@ def FindCorrLst(lst_set1, lst_set2):
     CorrLst = []
     for xy_tup in xy_lst:
         ind = FindXY(lst_set1, xy_tup)
-        if ind == None: 
+        # returns 'None' if an element in 'lst_set1'
+        # has an element with the same XY coordinates
+        # in 'lst_set2'
+         if ind == None: 
             return None
         for direc in range(2):
             val = lst_set1[ind+direc]
@@ -148,8 +155,10 @@ def FindCorrLst(lst_set1, lst_set2):
 
 def PossShift(lst_set1, lst_set2):
    # Computes bound for possible 'z' shift to satisfy the set inclusions
+   # and returns them as a list
     if lst_set1 == None: 
         return None
+    # Compute number of 'z'-intervals described by the lists
     interval_num = int( len(lst_set2)/2 )
     for j in range(interval_num):
         temp_low_bound = (lst_set2[2*j+1][2]-lst_set1[2*j+1][2])
