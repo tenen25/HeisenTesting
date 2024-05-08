@@ -256,14 +256,20 @@ def Project_to_Axis(var_set, axis_num):    #Project a set onto an axis to see va
 
 
 # A program to save pairs of gamma and x values satisfying the desired set inclusions
-def Save_Arrays_to_Text(arr, N, known_name, check_name):    
-
-    file = open(check_name+"_to_"+known_name, "w+")
-    start_str = "The condition is satisfied for " + check_name + " with respect to " \
-    +  known_name +"and " + str(N) + "with the following shift information:\n"
+def Save_Arrays_to_Text(arr, N, lamb, known_name, check_name):
+    file_name = "Documentation of InclCheck(" + str(lamb)  \
+    + "," + str(N) + "," + check_name + "," + known_name \
+    + ")"
+    file = open(file_name, "w+")
+    start_str = "We document the run of 'InclCheck' for N=" + str(N)  \
+    + " and stretch factor " + str(lamb) + ", for the known testing domain '"\
+    + known_name + "' and the suspected testing domain '" + check_name +"'.\n" \
+    + "The corresponding gamma to 'x' list follows:\n"
+    #start_str = "The condition is satisfied for " + check_name + " with respect to " \
+    #+  known_name +"and " + str(N) + "with the following shift information:\n"
     file.write(start_str)
     init_str1 = "For x="
-    init_str2 = ",  the corresponding gamma is "
+    init_str2 = " a corresponding gamma, for which the inclusion holds, is "
     for element in arr:
         curr_str = init_str1 + str(element[0]) + init_str2 + str(element[1]) + ".\n"
         file.write(curr_str)
