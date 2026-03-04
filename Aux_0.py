@@ -16,14 +16,16 @@ def Norm(x):
     return ((x[0]**2 + x[1]**2)**2 + x[2]**2)**(1/4)
 
 def Shift(A,B):
+    """Add each element of A to each element of B in the Heisenberg group.
+    Uses broadcasting to compute all pairwise sums, with z-coordinate 
+    adjusted by the Heisenberg group multiplication rule.
+    """
     A = np.array(A)
     B = np.array(B)
-    # We add the jth element of A to each element of B, then we crate a new axis and do the same with the (j+1)th
-    # element. This is done by the parameter "None". The third component just says that we take the whole array in the
-    # last dimension. Since we defined before A = np.array(A), this is the vector of length 3
+    # Broadcast A and B to compute all pairwise sums: shape becomes (len(A), len(B), 3)
     AB = A[:, None, :] + B[None, :, :]
-    # The code c -= a means c = c - a. So we substract in the following 
-    # something from the second component
+    # Adjust z-coordinate for Heisenberg group: subtract twice the "cross product" 
+    # of xy components: z' = z - 2(a_x*b_y - a_y*b_x)
     AB[:, :, 2] -= 2 * (A[:, None, 0] * B[None, :, 1] - A[:, None, 1] * B[None, :, 0])
     return list(chain.from_iterable(AB))
 
@@ -275,3 +277,4 @@ def Save_Arrays_to_Text(arr, N, lamb, known_name, check_name):
         file.write(curr_str)
     file.close()
     return
+
